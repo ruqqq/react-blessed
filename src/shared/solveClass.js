@@ -6,7 +6,7 @@
  */
 import merge from 'lodash/merge';
 import map from 'lodash/map';
-import filter from 'lodash/filter';
+import reduce from 'lodash/reduce';
 const emptyArray = [];
 
 /**
@@ -25,7 +25,18 @@ export default function solveClass(props) {
 
   args.push(rest);
 
-  let filterOutUndefinedArgs = map((arr) => filter((item) => typeof(item) !== 'undefined', arr), args);
+  let filterOutUndefinedArgs = map(
+    args,
+    (arr) => reduce(arr, (acc, item, key) => {
+      if (typeof(item) !== 'undefined') {
+        acc[key] = item;
+      }
+
+      return acc;
+    }, {})
+  );
+
+  console.log('filterOutUndefinedArgs', filterOutUndefinedArgs);
 
   return merge.apply(null, filterOutUndefinedArgs);
 }
