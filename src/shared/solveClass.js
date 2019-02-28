@@ -35,8 +35,6 @@ export default function solveClass(props) {
       return acc;
     }, {})
   );
-
-  console.log('filterOutUndefinedArgs', filterOutUndefinedArgs);
-
+  
   return merge.apply(null, filterOutUndefinedArgs);
 }
