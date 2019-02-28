@@ -5,6 +5,8 @@
  * Solving a component's classes to apply correct props to an element.
  */
 import merge from 'lodash/merge';
+import map from 'lodash/map';
+import filter from 'lodash/filter';
 const emptyArray = [];
 
 /**
@@ -23,5 +25,7 @@ export default function solveClass(props) {
 
   args.push(rest);
 
-  return merge.apply(null, args);
+  let filterOutUndefinedArgs = map((arr) => filter((item) => typeof(item) !== 'undefined', arr), args);
+
+  return merge.apply(null, filterOutUndefinedArgs);
 }
